@@ -1,29 +1,22 @@
-use serde::Deserialize;
-use std::error::Error;
+use jsonrpsee::core::client::ClientT;
+use jsonrpsee::ws_client::WsClientBuilder;
+#[allow(unused)]
 
-#[derive(Deserialize, Debug)]
-struct Peers {
-    num: Vec<Peer>,
+#[tokio::main]
+async fn main() {
+    get_blockchain_name().await;
 }
 
-#[derive(Deserialize, Debug)]
-struct Peer {
-    symbol: String,
-    count: u32,
-}
+async fn get_blockchain_name() -> String {
+    // Create a WebSocket client and connect to the node
+    let client = WsClientBuilder::default().build("ws://52.38.225.247:9944").await.expect("REASON");
+    // Call the `system_chain` method to get the blockchain name
+    let chain_name: String = client
+    .request("system_chain", jsonrpsee::core::params::ArrayParams::new())
+    .await
+    .expect("Failed to retrieve the chain name");
 
-fn get_node(url: &str) -> Result<Peers, Box<dyn Error>> {
-    let response = ureq::get(url).call()?.into_string()?;
-    let node : Vec<Peer> = serde_json::from_str(&response)?;
-    let peers = Peers {
-        num: serde_json::from_str(&response)?,
-    };
-    dbg!(node);
-    Ok(peers)
-}
+    println!("Connected to chain: {}", chain_name);
 
-fn main() {
-    let url = "https://api.binance.com/api/v1/ticker/24hr";
-    let num = get_node(url);
-    dbg!(num);
+    chain_name
 }
