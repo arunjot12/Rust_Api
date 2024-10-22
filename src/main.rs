@@ -7,7 +7,7 @@ use crate::firechain::*;
 #[tokio::main]
 async fn main() {
     // 5irechain
-    // get_blocknumber().await;
+    totat_issuance().await;
 
     // Binance 
 

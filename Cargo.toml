@@ -6,8 +6,11 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+jsonrpsee = { version = "0.24.7", features = ["async-client", "ws-client"] }
 reqwest = { version = "0.11", features = ["json"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+substrate-api-client = {git = "https://github.com/scs/substrate-api-client"}
 tokio = { version = "1", features = ["full"] }
 ureq = "2.10.1"
+jsonrpsee-ws-client = { version = "0.2.0-alpha.7" }
