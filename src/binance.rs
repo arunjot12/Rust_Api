@@ -1,4 +1,8 @@
 #[allow(dead_code)]
+ // Binance 
+    // let url = "https://api.binance.com/api/v1/ticker/24hr";
+    // let num = get_node(url);
+    // dbg!(num);
 use serde::Deserialize;
 use std::error::Error;
 #[allow(dead_code)]

@@ -14,4 +14,7 @@ substrate-api-client = {git = "https://github.com/scs/substrate-api-client"}
 tokio = { version = "1", features = ["full"] }
 ureq = "2.10.1"
 jsonrpsee-ws-client = { version = "0.2.0-alpha.7" }
-diesel = { version = "2.2.4", features = ["mysql"] }
+diesel = { version = "2.2.4", features = ["postgres"] }
+# mysqlclient-sys = { version = "0.4", features = ["bundled"] }
+dotenvy = "0.15.7"
+chrono = "0.4.38"
