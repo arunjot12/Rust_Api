@@ -1,7 +1,9 @@
 use diesel::prelude::*;
-
-#[derive(Queryable, Selectable)]
-#[diesel(table_name = crate::schema::blocks)]
+use crate::schema::blocks;
+#[derive(Queryable)]
+#[derive(QueryableByName)]
+#[derive(Selectable)]
+#[diesel(table_name =blocks)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 pub struct Blocks {
     pub id: i32,
@@ -9,9 +11,9 @@ pub struct Blocks {
     pub timestamp:u128,
 }
 
-// #[derive(Insertable)]
-// #[diesel(table_name = crate::schema::blocks)]
-// pub struct NewBlocks{
-//     pub block_number:i32,
-//     pub timestamp: i32,
-// }
+#[derive(Insertable)]
+#[diesel(table_name = blocks)]
+pub struct NewBlocks{
+    pub block_number:i32,
+
+}

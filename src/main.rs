@@ -8,7 +8,6 @@ use std::time::Duration;
 pub mod schema;
 pub mod models;
 
-
 /// 5irechain
 #[tokio::main]
 async fn main() {
@@ -23,6 +22,7 @@ async fn main() {
     {
         interval.tick().await;
         let block_number = get_blocknumber().await;
+        store_blocknumber(block_number);
         println!("Current block on {} blockchains is number: {} at time {:?}",blockchain_name, block_number,local);
     }
 }

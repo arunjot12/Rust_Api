@@ -3,7 +3,7 @@
 diesel::table! {
     blocks (id) {
         id -> Int4,
-        block_number -> Int8,
+        block_number -> Int4,
         timestamp -> Nullable<Timestamptz>,
     }
 }

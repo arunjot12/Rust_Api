@@ -11,9 +11,10 @@ use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
 
+use crate::{models::{Blocks, NewBlocks}, schema};
+
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
-
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     PgConnection::establish(&database_url)
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
@@ -45,4 +46,16 @@ pub async fn total_issuance() -> Option<u128> {
         .get_storage::<u128>("Balances", "TotalIssuance", None).await
         .unwrap();
     balance
+}
+
+pub fn store_blocknumber(block_number:u64) {
+    let connection = establish_connection();
+    let new_block = NewBlocks{
+        block_number:block_number as i32
+    };
+    diesel::insert_into(schema::blocks::table)
+    .values(&new_block)
+    .returning(Blocks::as_returning())
+    .get_results::<Blocks>(&mut connection)
+    .expect("Error saving new post");
 }
